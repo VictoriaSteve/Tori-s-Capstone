@@ -47,9 +47,12 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'rest_framework_simplejwt',
+    'drf_spectacular',
 
     #apps
-    'users'
+    'users',
+    'products',
+    'cart'
 ]
 
 MIDDLEWARE = [
@@ -72,15 +75,16 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication' # It decodes your token
     ],
-    # 'DEFAULT_PERMISSION_CLASSES': [
-    #     'rest_framework.permissions.IsAuthenticated' # Makes all endpoints or Url's protected
-    #]
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated' # Makes all endpoints or Url's protected
+    ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema'
 }
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -102,6 +106,12 @@ SIMPLE_JWT = {
     'ALGORITHM': 'HS256' # the algorithm used to sign the token. The formula on how the token is made
 }
 
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'ToriesGlow_Beauty Application API',
+    'DESCRIPTION': 'A list of all my endpoints for my ToriesGlow_Beauty application',
+    'VERSION': '1.0.0'
+}
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
@@ -149,3 +159,32 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+
+
+
+
+# SMTP CONFIGURATION
+EMAIL_BACKEND = os.getenv("EMAIL_BACKEND")
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_PORT = int(os.getenv("EMAIL_PORT", 587))
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS") == "True"
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("APP_PASSWORD")
+
+
+
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+
+
+
+PAYSTACK_SECRET_KEY = "sk_test_4376fab70e38f4871614d3e82cbb212f4e7c4aeb"
+PAYSTACK_PUBLIC_KEY = "pk_test_xxxxx"
+
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
