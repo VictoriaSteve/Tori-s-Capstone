@@ -1,38 +1,42 @@
-# ToriesGlow API
+# 💄 ToriesGlow API
 
-A Django REST API for a beauty e-commerce platform.
+A Django REST API for a beauty personal care.
 
 # Features
 
-Products (CRUD + images)
-Reviews
-Cart & checkout
-Paystack payments
-Auto stock update
-Email receipts
-View order details (per user)
-Admin can view any order
-Swagger docs
+* Products (CRUD + images)
+* Reviews system
+* Cart & checkout
+* Paystack payments
+* Auto stock update after payment
+* Email receipts
+* View order details (per user)
+* Admin can view any order
+* Swagger API docs
+
+# Access Control
+
+* Users can only view their own orders
+* Admins can view all orders
 
 # Tech Stack
 
-Django REST Framework
-Paystack
-drf-spectacular
+* Django REST Framework
+* Paystack
+* drf-spectacular
 
 # Endpoints
 
-/user/
-/products/
-/cart/
-/cart/checkout/
-/cart/pay/<order_id>/
-/cart/verify/<reference>/
-/cart/order/<order_id>/
+* `/products/`
+* `/cart/`
+* `/cart/checkout/`
+* `/cart/pay/<order_id>/`
+* `/cart/verify/<reference>/`
+* `/cart/order/<order_id>/`
 
 # Docs
 
-/api/docs/
+* `/api/docs/`
 
 # Tagline
 
