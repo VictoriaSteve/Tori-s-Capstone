@@ -52,7 +52,9 @@ _error_response = inline_serializer(
 @extend_schema(
     summary="Create Product",
     description="Create a new ToriesGlow product.",
-    request=ProductSerializer,
+    request={
+        "multipart/form-data": ProductSerializer
+    },
     responses={
         201: _product_response,
         400: _error_response
