@@ -1,4 +1,3 @@
-"# Tori-s-Capstone" 
 # ToriesGlow API
 
 A Django REST API for a beauty e-commerce platform.
