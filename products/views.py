@@ -57,7 +57,7 @@ _error_response = inline_serializer(
         201: _product_response,
         400: _error_response
     },
-    tags=["Products"]
+    tags=["Admin"]
 )
 @api_view(["POST"])
 @permission_classes([permissions.IsAuthenticated,  permissions.IsAdminUser])
@@ -131,7 +131,7 @@ def get_product(request, id):
         400: _error_response,
         404: _error_response
     },
-    tags=["Products"]
+    tags=["Admin"]
 )
 @api_view(["PUT", "PATCH"])
 @permission_classes([permissions.IsAuthenticated,  permissions.IsAdminUser])
@@ -156,7 +156,7 @@ def update_product(request, id):
         204: OpenApiResponse(description="Product deleted successfully"),
         404: _error_response
     },
-    tags=["Products"]
+    tags=["Admin"]
 )
 @api_view(["DELETE"])
 @permission_classes([permissions.IsAuthenticated,  permissions.IsAdminUser])

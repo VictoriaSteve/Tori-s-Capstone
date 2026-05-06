@@ -60,11 +60,27 @@ _payment_response = inline_serializer(
     }
 )
 
+add_to_cart_request = inline_serializer(
+    name="AddToCartRequest",
+    fields={
+        "product_id": drf_serializers.IntegerField(),
+        "quantity": drf_serializers.IntegerField(default=1)
+    }
+)
+
+update_cart_request = inline_serializer(
+    name="UpdateCartRequest",
+    fields={
+        "quantity": drf_serializers.IntegerField()
+    }
+)
+
 
 # ADD TO CART
 @extend_schema(
     summary="Add to Cart",
     description="Add product to user's cart.",
+    request=add_to_cart_request,
     tags=["Cart"],
     responses={200: _message_response, 404: _error_response}
 )
@@ -120,6 +136,7 @@ def view_cart(request):
 @extend_schema(
     summary="Update Cart Item",
     description="Update quantity of a cart item.",
+    request=update_cart_request,
     tags=["Cart"],
     responses={200: _message_response, 404: _error_response}
 )
