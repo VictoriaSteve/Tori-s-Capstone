@@ -16,8 +16,10 @@ A Django REST API for a beauty personal care.
 
 # Access Control
 
-* Users can only view their own orders
-* Admins can view all orders
+* Authentication required for protected endpoints
+* Users can only access their own data (cart, orders)
+* Admin users have extended privileges (e.g. view all orders)
+ 
 
 # Tech Stack
 

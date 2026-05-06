@@ -60,7 +60,7 @@ _error_response = inline_serializer(
     tags=["Products"]
 )
 @api_view(["POST"])
-@permission_classes([permissions.IsAuthenticated])
+@permission_classes([permissions.IsAuthenticated,  permissions.IsAdminUser])
 def create_product(request):
     serializer = ProductSerializer(data=request.data)
     if serializer.is_valid():
@@ -134,7 +134,7 @@ def get_product(request, id):
     tags=["Products"]
 )
 @api_view(["PUT", "PATCH"])
-@permission_classes([permissions.IsAuthenticated])
+@permission_classes([permissions.IsAuthenticated,  permissions.IsAdminUser])
 def update_product(request, id):
     try:
         product = Product.objects.get(id=id)
@@ -159,7 +159,7 @@ def update_product(request, id):
     tags=["Products"]
 )
 @api_view(["DELETE"])
-@permission_classes([permissions.IsAuthenticated])
+@permission_classes([permissions.IsAuthenticated,  permissions.IsAdminUser])
 def delete_product(request, id):
     try:
         product = Product.objects.get(id=id)
