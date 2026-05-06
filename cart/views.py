@@ -276,3 +276,37 @@ def verify_payment(request, reference):
         })
 
     return Response({"message": "Payment failed"})
+
+
+# GET ORDER DETAILS
+@extend_schema(
+    summary="Get Order Details",
+    description="View what a customer ordered.",
+    tags=["Orders"]
+)
+@api_view(["GET"])
+@permission_classes([permissions.IsAuthenticated])
+def get_order_details(request, order_id):
+    if request.user.is_staff:
+        order = Order.objects.filter(id=order_id).first()
+    else:
+        order = Order.objects.filter(id=order_id, user=request.user).first()
+
+    if not order:
+        return Response({"error": "Order not found"}, status=404)
+
+    items = OrderItem.objects.filter(order=order)
+
+    data = []
+    for item in items:
+        data.append({
+            "product": item.product.name,
+            "quantity": item.quantity,
+            "price": item.price
+        })
+
+    return Response({
+        "order_id": order.id,
+        "total_price": order.total_price,
+        "items": data
+    })    
