@@ -28,3 +28,18 @@ class ProductSerializer(serializers.ModelSerializer):
             "created_at",
             "reviews"
         ]
+
+
+class CreateProductSerializer(serializers.ModelSerializer):
+    image = serializers.ImageField(required=False)
+
+    class Meta:
+        model = Product
+        fields = [
+            "image",
+            "name",
+            "price",
+            "description",
+            "category",
+            "stock",
+        ]

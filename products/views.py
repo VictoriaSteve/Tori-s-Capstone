@@ -2,7 +2,8 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status, permissions
 from .models import Product, Review
-from .serializers import ProductSerializer, ReviewSerializer
+from .serializers import ProductSerializer, ReviewSerializer, CreateProductSerializer
+from rest_framework.parsers import MultiPartParser, FormParser
 
 # Swagger / OpenAPI
 from rest_framework import serializers as drf_serializers
@@ -53,7 +54,7 @@ _error_response = inline_serializer(
     summary="Create Product",
     description="Create a new ToriesGlow product.",
     request={
-        "multipart/form-data": ProductSerializer
+        "multipart/form-data": CreateProductSerializer
     },
     responses={
         201: _product_response,
@@ -64,7 +65,7 @@ _error_response = inline_serializer(
 @api_view(["POST"])
 @permission_classes([permissions.IsAuthenticated,  permissions.IsAdminUser])
 def create_product(request):
-    serializer = ProductSerializer(data=request.data)
+    serializer = CreateProductSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save(created_by=request.user)
         return Response(
@@ -72,6 +73,8 @@ def create_product(request):
             status=201
         )
     return Response(serializer.errors, status=400)
+
+create_product.parser_classes = [MultiPartParser, FormParser]
 
 
 # GET ALL PRODUCTS
